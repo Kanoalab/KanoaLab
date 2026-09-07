@@ -37,8 +37,8 @@
 
       --font-stack: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
-      --max-width: 1240px;
-      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      --max-width: 1260px;
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     * {
@@ -80,7 +80,198 @@
       padding: 0 24px;
     }
 
-    /* Typography Utilities */
+    /* ========================================================
+       [개선 핵심] Header & Navigation 완벽 1줄 고정 레이아웃 
+    ======================================================== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(5, 7, 13, 0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border-card);
+      transition: var(--transition);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+      gap: 16px;
+      white-space: nowrap; /* 글자 줄바꿈 절대 방지 */
+    }
+
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0; /* 로고 폭 강제 보존 */
+    }
+
+    .logo-glow {
+      width: 10px;
+      height: 10px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--accent-cyan);
+    }
+
+    /* 중앙 메뉴 목록 (글자 안 겹치게 간격 및 크기 정밀 튜닝) */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      list-style: none;
+      flex-shrink: 1;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: var(--transition);
+      padding: 6px 0;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-cyan);
+    }
+
+    /* 외부 링크 전용 아이콘 뱃지 (GitHub, Hugging Face) */
+    .external-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px !important;
+      border-radius: 6px;
+      font-size: 0.78rem !important;
+      font-weight: 600 !important;
+      transition: var(--transition);
+    }
+    .badge-github {
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      color: #00f2fe !important;
+    }
+    .badge-github:hover {
+      background: rgba(0, 242, 254, 0.2);
+      box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+    }
+    .badge-hf {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #fbbf24 !important;
+    }
+    .badge-hf:hover {
+      background: rgba(245, 158, 11, 0.22);
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+    }
+
+    /* 우측 버튼 그룹 */
+    .nav-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .nav-demo-btn {
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fcd34d;
+      font-weight: 700;
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .nav-demo-btn:hover {
+      background: rgba(245, 158, 11, 0.22);
+      border-color: #f59e0b;
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      color: #050608;
+      font-weight: 700;
+      padding: 7px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: var(--transition);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+    }
+
+    .nav-cta:hover {
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.45);
+      transform: translateY(-1px);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #fff;
+      margin: 5px 0;
+      transition: var(--transition);
+    }
+
+    /* ========================================================
+       Section & Content Styles
+    ======================================================== */
+    section {
+      padding: 110px 0;
+      position: relative;
+    }
+    .section-header {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 60px auto;
+    }
+    .section-header .sub-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent-cyan);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .section-header h2 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
     .gradient-text {
       background: linear-gradient(135deg, #ffffff 30%, var(--accent-cyan) 75%, var(--accent-gold) 100%);
       -webkit-background-clip: text;
@@ -128,148 +319,12 @@
       font-family: var(--font-mono);
     }
 
-    /* Header & Navigation */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      background: rgba(5, 7, 13, 0.85);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border-card);
-      transition: var(--transition);
-    }
-    .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 72px;
-    }
-    .logo {
-      font-size: 1.35rem;
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      color: #ffffff;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .logo-glow {
-      width: 12px;
-      height: 12px;
-      background: var(--accent-cyan);
-      border-radius: 50%;
-      box-shadow: 0 0 14px var(--accent-cyan);
-    }
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-    }
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.92rem;
-      font-weight: 500;
-      transition: var(--transition);
-    }
-    .nav-links a:hover {
-      color: var(--accent-cyan);
-    }
-    .nav-cta-group {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .nav-cta {
-      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
-      color: #050608;
-      font-weight: 700;
-      padding: 9px 18px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: var(--transition);
-      box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
-    }
-    .nav-cta:hover {
-      box-shadow: 0 0 30px rgba(0, 242, 254, 0.5);
-      transform: translateY(-1px);
-    }
-    .nav-demo-btn {
-      background: rgba(245, 158, 11, 0.15);
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      color: #fcd34d;
-      font-weight: 700;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 0.825rem;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .nav-demo-btn:hover {
-      background: rgba(245, 158, 11, 0.25);
-      border-color: #f59e0b;
-    }
-    .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 8px;
-    }
-    .menu-toggle span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: #fff;
-      margin: 5px 0;
-      transition: var(--transition);
-    }
-
-    /* Section Styles */
-    section {
-      padding: 110px 0;
-      position: relative;
-    }
-    .section-header {
-      text-align: center;
-      max-width: 760px;
-      margin: 0 auto 60px auto;
-    }
-    .section-header .sub-badge {
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: var(--accent-cyan);
-      margin-bottom: 12px;
-      display: block;
-    }
-    .section-header h2 {
-      font-size: 2.3rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 16px;
-      line-height: 1.3;
-    }
-    .section-header p {
-      color: var(--text-muted);
-      font-size: 1.05rem;
-    }
-
-    /* Hero Section */
+    /* Hero */
     #hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding-top: 140px;
+      padding-top: 130px;
     }
     .hero-content {
       text-align: center;
@@ -357,7 +412,7 @@
       border-color: rgba(255, 255, 255, 0.2);
     }
 
-    /* Bento Grid */
+    /* Bento Cards */
     .bento-grid {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
@@ -445,7 +500,7 @@
       line-height: 1.6;
     }
 
-    /* Live Demo Preview Section */
+    /* Live Demo Terminal */
     #demo-preview {
       background: linear-gradient(180deg, rgba(8, 11, 20, 0.8) 0%, rgba(5, 7, 13, 1) 100%);
       border-top: 1px solid var(--border-card);
@@ -529,7 +584,7 @@
       line-height: 1.6;
     }
 
-    /* Timeline Section */
+    /* Timeline */
     .timeline-wrap {
       max-width: 840px;
       margin: 0 auto;
@@ -596,7 +651,7 @@
       line-height: 1.7;
     }
 
-    /* Location Section & Map Fix */
+    /* Location & Map */
     .location-card {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -635,7 +690,6 @@
       color: var(--accent-cyan);
       pointer-events: none;
       backdrop-filter: blur(8px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     }
     .map-link-group {
       margin-top: 20px;
@@ -659,7 +713,6 @@
     }
     .btn-naver:hover {
       background: rgba(3, 199, 90, 0.3);
-      box-shadow: 0 0 15px rgba(3, 199, 90, 0.4);
       transform: translateY(-2px);
     }
     .btn-kakao {
@@ -678,11 +731,10 @@
     }
     .btn-kakao:hover {
       background: rgba(254, 229, 0, 0.3);
-      box-shadow: 0 0 15px rgba(254, 229, 0, 0.4);
       transform: translateY(-2px);
     }
 
-    /* Customer Center & Notice */
+    /* Notice & Customer Center */
     .notice-box {
       background: var(--bg-card);
       border: 1px solid var(--border-card);
@@ -734,30 +786,23 @@
       font-family: var(--font-mono);
     }
 
-    /* Contact Form */
+    /* Form */
     .contact-form {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
     .form-group {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-    }
-    .form-group.full {
-      grid-column: span 2;
-    }
-    .form-group label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-muted);
+      gap: 6px;
     }
     .form-control {
-      background: rgba(12, 14, 21, 0.8);
-      border: 1px solid var(--border-card);
+      width: 100%;
+      padding: 12px;
       border-radius: 8px;
-      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       color: #fff;
       font-family: inherit;
       font-size: 0.95rem;
@@ -767,10 +812,6 @@
     .form-control:focus {
       border-color: var(--accent-cyan);
       box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
-    }
-    textarea.form-control {
-      resize: vertical;
-      min-height: 120px;
     }
 
     /* Footer */
@@ -794,7 +835,7 @@
     }
     .footer-links {
       display: flex;
-      gap: 24px;
+      gap: 20px;
     }
     .footer-links a {
       color: var(--text-muted);
@@ -810,7 +851,7 @@
       border-top: 1px solid rgba(255, 255, 255, 0.03);
     }
 
-    /* Modal Backdrop & Window */
+    /* Modal */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -844,7 +885,7 @@
       transform: scale(1);
     }
 
-    /* Toast Notification */
+    /* Toast */
     #toast {
       position: fixed;
       bottom: 24px;
@@ -865,29 +906,46 @@
       transform: translateY(0);
     }
 
-    /* Responsive Queries */
+    /* ========================================================
+       [반응형 분기점] 화면이 1120px 밑으로 떨어지면 모바일 메뉴로 전환
+    ======================================================== */
+    @media (max-width: 1120px) {
+      .nav-links {
+        display: none;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .mobile-menu-active .nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        width: 100%;
+        background: rgba(5, 7, 13, 0.98);
+        border-bottom: 1px solid var(--border-card);
+        padding: 24px 32px;
+        gap: 16px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+      }
+      .mobile-menu-active .nav-links a {
+        font-size: 1rem;
+        width: 100%;
+      }
+    }
+
     @media (max-width: 992px) {
       .card-large, .card-small { grid-column: span 12; }
       .location-card { grid-template-columns: 1fr; }
       .demo-terminal-body { grid-template-columns: 1fr; }
     }
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .menu-toggle { display: block; }
-      .mobile-menu-active .nav-links {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 72px;
-        left: 0;
-        width: 100%;
-        background: rgba(8, 9, 13, 0.98);
-        border-bottom: 1px solid var(--border-card);
-        padding: 24px;
-        gap: 20px;
+
+    @media (max-width: 600px) {
+      .nav-cta-group {
+        display: none; /* 모바일 극소화면 시 우측 버튼은 햄버거 메뉴 뒤로 정리 */
       }
-      .contact-form { grid-template-columns: 1fr; }
-      .form-group.full { grid-column: span 1; }
       section { padding: 75px 0; }
     }
   </style>
@@ -896,25 +954,38 @@
 
   <div class="glow-bg"></div>
 
-  <!-- Header -->
+  <!-- Header & Navigation -->
   <header>
     <div class="container nav-container">
+      <!-- 1. 로고 -->
       <a href="#" class="logo">
         <div class="logo-glow"></div>
-        KANOALAB
+        <span>KANOALAB</span>
       </a>
+
+      <!-- 2. 중앙 메뉴 (간결한 네이밍과 콤팩트 뱃지로 1줄 고정) -->
       <ul class="nav-links" id="navLinks">
-<a href="#about">연구소 소개</a>
-<a href="#research">핵심 연구(v7.1000)</a>
-<a href="#demo">실시간 데모</a>
-<a href="#roadmap">투자 & 연혁</a>
-<a href="#location">오시는 길</a>
-<a href="#customer">고객센터</a>
-<a href="https://github.com/Kanoalab/KanoaLab" target="_blank" style="color: #00ffcc; font-weight: bold; border: 1px solid #00ffcc; padding: 2px 6px; border-radius: 4px; margin-left: 5px;">📊 GitHub</a>
-<a href="https://huggingface.co/KANOALAB/Sovereign-v7.1000-Bible-LoRA" target="_blank" style="color: #ffcc00; font-weight: bold; border: 1px solid #ffcc00; padding: 2px 6px; border-radius: 4px; margin-left: 5px;">🤗 Hugging Face</a>
-
-
+        <li><a href="#about">소개</a></li>
+        <li><a href="#research">핵심연구</a></li>
+        <li><a href="#demo-preview">실시간데모</a></li>
+        <li><a href="#history">로드맵</a></li>
+        <li><a href="#location">오시는길</a></li>
+        <li><a href="#customer">고객센터</a></li>
+        <!-- GitHub 콤팩트 배지 -->
+        <li>
+          <a href="https://github.com/Kanoalab/KanoaLab" target="_blank" rel="noopener noreferrer" class="external-badge badge-github">
+            <span>⚡ GitHub</span>
+          </a>
+        </li>
+        <!-- HuggingFace 콤팩트 배지 -->
+        <li>
+          <a href="https://huggingface.co/KANOALAB/Sovereign-v7.1000-Bible-LoRA" target="_blank" rel="noopener noreferrer" class="external-badge badge-hf">
+            <span>🤗 HuggingFace</span>
+          </a>
+        </li>
       </ul>
+
+      <!-- 3. 우측 액션 버튼 그룹 -->
       <div class="nav-cta-group">
         <button class="nav-demo-btn" onclick="openDemoModal()">
           <span>⚡</span>
@@ -922,6 +993,8 @@
         </button>
         <a href="#customer" class="nav-cta">기술 제휴</a>
       </div>
+
+      <!-- 모바일 햄버거 토글 버튼 -->
       <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">
         <span></span>
         <span></span>
@@ -1169,22 +1242,22 @@
           </div>
         </div>
 
-          <!-- 2027. H2 로드맵: 1인 오픈소스 복음 비전 선언 -->
-          <div class="timeline-item future">
-            <div class="timeline-node"></div>
-            <div class="timeline-date">2027. H2 (UPCOMING)</div>
-            <div class="timeline-content">
-              <h4 style="color: #ec4899;">글로벌 로컬 AI 인공두뇌 가중치(Weight) 무상 배포 및 복음 자립화</h4>
-              <p>
-                66권 전체 31,102절 기호논리 AI 성경책 상용화 솔루션의 핵심 가중치(Weight File)를 전 세계에 오픈소스로 전격 배포합니다. 
-                빅테크의 서버 검열이나 비용 장벽 없이, 지구상 모든 이들이 로컬 환경(PC)에서 독립적으로 완벽한 무결성 성경 AI를 구동하여 스스로 복음을 받아들이고 신앙적으로 자립할 수 있는 인프라를 실현합니다.
-              </p>
-            </div>
+        <div class="timeline-item future">
+          <div class="timeline-node"></div>
+          <div class="timeline-date">2027. H2 (UPCOMING)</div>
+          <div class="timeline-content">
+            <h4 style="color: #ec4899;">글로벌 로컬 AI 인공두뇌 가중치(Weight) 무상 배포 및 복음 자립화</h4>
+            <p>
+              66권 전체 31,102절 기호논리 AI 성경책 상용화 솔루션의 핵심 가중치(Weight File)를 전 세계에 오픈소스로 전격 배포합니다. 
+              빅테크의 서버 검열이나 비용 장벽 없이, 지구상 모든 이들이 로컬 환경(PC)에서 독립적으로 완벽한 무결성 성경 AI를 구동하여 스스로 복음을 받아들이고 신앙적으로 자립할 수 있는 인프라를 실현합니다.
+            </p>
           </div>
-
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Location Section (정상화된 오픈 맵 및 실링크 연동) -->
+  <!-- Location Section -->
   <section id="location">
     <div class="container">
       <div class="section-header">
@@ -1204,7 +1277,7 @@
           </p>
           <button class="btn-secondary" onclick="copyAddress()">주소 복사하기</button>
 
-          <!-- 길찾기 공식 딥링크 그룹 -->
+          <!-- 길찾기 공식 딥링크 -->
           <div class="map-link-group">
             <a href="https://map.naver.com/p/directions/-/3AmU2S,2zCcyp,%EA%B3%84%EB%AA%85%EB%8C%80%ED%95%99%EA%B5%90%20%EB%8C%80%EB%AA%85%EC%BA%A0%ED%8D%BC%EC%8A%A4,11591497,PLACE_POI/-/transit?c=15.00,0,0,0,dh" 
                target="_blank" 
@@ -1221,11 +1294,10 @@
           </div>
         </div>
 
-        <!-- 인터랙티브 다크모드 맵 뷰포트 (오류 해결 완료) -->
         <div class="map-container-box">
           <iframe 
             src="https://www.openstreetmap.org/export/embed.html?bbox=128.5770%2C35.8500%2C128.5910%2C35.8585&amp;layer=mapnik&amp;marker=35.8542%2C128.5840" 
-            title="카노아랩 헤드쿼터 (계명대학교 대명캠퍼스 구역)">
+            title="카노아랩 헤드쿼터">
           </iframe>
           <div class="map-badge-overlay">
             🔒 KANOALAB CAMPUS // SECURE LAB ZONE
@@ -1244,7 +1316,7 @@
         <p>법인 전환 공시를 투명하게 안내하며, 파트너십 및 기술 문의를 24시간 이내에 전담 연구진이 회신합니다.</p>
       </div>
 
-      <!-- 공지사항 게시판 레이아웃 -->
+      <!-- 공지사항 -->
       <div class="notice-box">
         <div class="notice-header">
           <span>공지 제목</span>
@@ -1273,50 +1345,43 @@
         </div>
       </div>
 
-      <!-- Inquiry Form -->
-<!-- 프로젝트 및 기술 제휴 문의 최종 완공 컴포넌트 -->
-<div class="card card-full">
-  <div class="card-icon">✉</div>
-  <h3>프로젝트 및 기술 제휴 문의</h3>
-  <p style="margin-bottom: 24px; color: var(--text-muted);">파트너십 및 기술 문의를 남겨주시면 24시간 이내에 전담 연구진이 회신합니다.</p>
-  
-  <!-- [중요] action 자리에 Formspree 가입 후 발급받은 소장님만의 고유 ID 코드를 꼭 넣으세요 -->
-  <form action="https://formspree.io/f/xoeqknqj" method="POST" class="contact-form" style="display: flex; flex-direction: column; gap: 16px;">
-    
-    <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
-      <label for="client-name" style="font-size: 0.85rem; color: #9ca3af;">성함 / 담당자 직함 / 투자사명</label>
-      <input type="text" id="client-name" name="name" class="form-control" placeholder="홍길동 수석 / 대표이사 / VC투자팀" required style="width: 100%; padding: 12px; border-radius: 6px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: #fff;" />
+      <!-- Contact Form -->
+      <div class="card card-full">
+        <div class="card-icon">✉</div>
+        <h3>프로젝트 및 기술 제휴 문의</h3>
+        <p style="margin-bottom: 24px; color: var(--text-muted);">파트너십 및 기술 문의를 남겨주시면 24시간 이내에 전담 연구진이 회신합니다.</p>
+        
+        <form action="https://formspree.io/f/xoeqknqj" method="POST" class="contact-form">
+          <div class="form-group">
+            <label for="client-name" style="font-size: 0.85rem; color: #9ca3af;">성함 / 담당자 직함 / 투자사명</label>
+            <input type="text" id="client-name" name="name" class="form-control" placeholder="홍길동 수석 / 대표이사 / VC투자팀" required />
+          </div>
+          
+          <div class="form-group">
+            <label for="client-email" style="font-size: 0.85rem; color: #9ca3af;">이메일 주소 (회신용)</label>
+            <input type="email" id="client-email" name="_replyto" class="form-control" placeholder="your-email@domain.com" required />
+          </div>
+          
+          <div class="form-group">
+            <label for="client-subject" style="font-size: 0.85rem; color: #9ca3af;">문의 주제</label>
+            <input type="text" id="client-subject" name="subject" class="form-control" placeholder="v7.1000 데이터셋 제휴 / 기술 미팅 제안 등" required />
+          </div>
+          
+          <div class="form-group">
+            <label for="client-message" style="font-size: 0.85rem; color: #9ca3af;">상세 문의 내용</label>
+            <textarea id="client-message" name="message" class="form-control" placeholder="문의하실 구체적인 세부 사항을 입력해 주세요." required style="min-height: 120px; resize: vertical;"></textarea>
+          </div>
+          
+          <input type="hidden" name="_next" value="https://kanoalab.com" />
+          
+          <div style="margin-top: 10px;">
+            <button type="submit" class="btn-primary" style="width: 100%; border: none; font-size: 1rem; padding: 16px; border-radius: 6px; background: #ec4899; color: #fff; font-weight: bold; cursor: pointer;">
+              🚀 문의 메일 전송 (info@kanoalab.com)
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-    
-    <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
-      <label for="client-email" style="font-size: 0.85rem; color: #9ca3af;">이메일 주소 (회신용)</label>
-      <input type="email" id="client-email" name="_replyto" class="form-control" placeholder="your-email@domain.com" required style="width: 100%; padding: 12px; border-radius: 6px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: #fff;" />
-    </div>
-    
-    <div class="form-group full" style="display: flex; flex-direction: column; gap: 6px;">
-      <label for="client-subject" style="font-size: 0.85rem; color: #9ca3af;">문의 주제</label>
-      <input type="text" id="client-subject" name="subject" class="form-control" placeholder="v7.1000 데이터셋 제휴 / 기술 미팅 제안 등" required style="width: 100%; padding: 12px; border-radius: 6px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: #fff;" />
-    </div>
-    
-    <div class="form-group full" style="display: flex; flex-direction: column; gap: 6px;">
-      <label for="client-message" style="font-size: 0.85rem; color: #9ca3af;">상세 문의 내용</label>
-      <textarea id="client-message" name="message" class="form-control" placeholder="문의하실 구체적인 세부 사항을 입력해 주세요." required style="width: 100%; padding: 12px; border-radius: 6px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); color: #fff; min-height: 120px; resize: vertical;"></textarea>
-    </div>
-    
-    <!-- 전송 성공 후 사용자를 다시 카노아랩 메인으로 리다이렉트하는 장치 -->
-    <input type="hidden" name="_next" value="https://kanoalab.com" />
-    
-    <!-- [버그 해결] 정식 type="submit" 속성이 박힌 단단한 전송 버튼 -->
-    <div class="form-group full" style="margin-top: 10px;">
-      <button type="submit" class="btn-primary" style="width: 100%; border: none; font-size: 1rem; padding: 16px; border-radius: 6px; background: #ec4899; color: #fff; font-weight: bold; cursor: pointer; transition: background 0.3s;">
-        🚀 문의 메일 전송 (info@kanoalab.com)
-      </button>
-    </div>
-    
-  </form>
-</div>
-
-
   </section>
 
   <!-- Footer -->
@@ -1479,22 +1544,6 @@
         "2. 디딤돌 창업과제 R&D, 중기부 팁스(TIPS) 과제 도전 및 정식 주식회사 법인 설립 절차를 순조롭게 진행 중입니다.\n\n" +
         "NVIDIA RTX 5090 Blackwell 인프라를 바탕으로 글로벌 딥테크를 선도하겠습니다."
       );
-    }
-
-    // 6. 문의 폼 전송 핸들러
-    function handleContactSubmit(event) {
-      event.preventDefault();
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const subject = document.getElementById('subject').value;
-      const message = document.getElementById('message').value;
-
-      const mailtoLink = `mailto:info@kanoalab.com?subject=[카노아랩 제휴/투자 문의] ${encodeURIComponent(subject)}&body=${encodeURIComponent(
-        `보내시는 분: ${name} (${email})\n\n문의 내용:\n${message}`
-      )}`;
-      
-      window.location.href = mailtoLink;
-      showToast("메일 클라이언트로 연결합니다. (수신: info@kanoalab.com)");
     }
   </script>
 </body>
