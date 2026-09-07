@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KANOALAB | Next-Gen AI Research & Engineering</title>
+  <meta name="description" content="카노아랩(KANOALAB)은 구글 제미나이 생태계 기반의 독보적인 데이터셋 파인튜닝과 지능형 비즈니스 오토메이션을 선도하는 차세대 AI 테크 랩입니다." />
+  
+  <!-- Fonts (Inter & Pretendard) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-primary: #08090d;
+      --bg-secondary: #0f111a;
+      --bg-card: rgba(23, 27, 40, 0.55);
+      --border-card: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(0, 242, 254, 0.35);
+      
+      --accent-cyan: #00f2fe;
+      --accent-blue: #4facfe;
+      --accent-purple: #7928ca;
+      --accent-magenta: #ff0080;
+      --accent-gemini: linear-gradient(135deg, #1a73e8, #8ab4f8 50%, #c58af9);
+
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+
+      --font-stack: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      --max-width: 1200px;
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-stack);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Ambient Background Glow */
+    .glow-bg {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: 100vh;
+      background: 
+        radial-gradient(circle at 20% 15%, rgba(0, 242, 254, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 80% 30%, rgba(121, 40, 202, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 50% 80%, rgba(255, 0, 128, 0.05) 0%, transparent 60%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Typography Utilities */
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 30%, var(--accent-cyan) 80%, var(--accent-purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .badge-gemini {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: rgba(26, 115, 232, 0.12);
+      border: 1px solid rgba(138, 180, 248, 0.3);
+      font-size: 0.825rem;
+      font-weight: 500;
+      color: #8ab4f8;
+      backdrop-filter: blur(10px);
+    }
+    .badge-gemini span.dot {
+      width: 7px;
+      height: 7px;
+      background: #8ab4f8;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #8ab4f8;
+    }
+
+    /* Header & Navigation */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(8, 9, 13, 0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-card);
+      transition: var(--transition);
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-glow {
+      width: 10px;
+      height: 10px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--accent-cyan);
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.925rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    .nav-links a:hover {
+      color: var(--accent-cyan);
+    }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      color: #050608;
+      font-weight: 600;
+      padding: 9px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: var(--transition);
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
+    }
+    .nav-cta:hover {
+      box-shadow: 0 0 30px rgba(0, 242, 254, 0.5);
+      transform: translateY(-1px);
+    }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #fff;
+      margin: 5px 0;
+      transition: var(--transition);
+    }
+
+    /* Section Styles */
+    section {
+      padding: 120px 0;
+      position: relative;
+    }
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 64px auto;
+    }
+    .section-header .sub-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent-cyan);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .section-header h2 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    /* Hero Section */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 140px;
+    }
+    .hero-content {
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-badge-wrap {
+      margin-bottom: 24px;
+    }
+    .hero-title {
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+    }
+    .hero-desc {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto 40px auto;
+      font-weight: 400;
+    }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      color: #040711;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 4px 25px rgba(0, 242, 254, 0.35);
+      transition: var(--transition);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 35px rgba(0, 242, 254, 0.55);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-card);
+      color: var(--text-main);
+      font-weight: 600;
+      padding: 14px 30px;
+      border-radius: 10px;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      transition: var(--transition);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Bento Cards (Research & Tech) */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 20px;
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+      transition: var(--transition);
+    }
+    .card:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+    }
+    .card-large {
+      grid-column: span 7;
+    }
+    .card-small {
+      grid-column: span 5;
+    }
+    .card-full {
+      grid-column: span 12;
+    }
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      background: rgba(0, 242, 254, 0.1);
+      color: var(--accent-cyan);
+      font-size: 1.3rem;
+      border: 1px solid rgba(0, 242, 254, 0.2);
+    }
+    .card h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* Timeline Section (연혁 & 법인 전환) */
+    .timeline-wrap {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .timeline-wrap::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-purple), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      padding-left: 56px;
+      margin-bottom: 40px;
+    }
+    .timeline-node {
+      position: absolute;
+      left: 12px;
+      top: 4px;
+      width: 18px;
+      height: 18px;
+      background: var(--bg-primary);
+      border: 3px solid var(--accent-cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-cyan);
+    }
+    .timeline-item.future .timeline-node {
+      border-color: var(--accent-magenta);
+      box-shadow: 0 0 12px var(--accent-magenta);
+    }
+    .timeline-date {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .timeline-item.future .timeline-date {
+      color: var(--accent-magenta);
+    }
+    .timeline-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      padding: 24px;
+      border-radius: 14px;
+    }
+    .timeline-content h4 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .timeline-content p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Notice & Customer Center */
+    .notice-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .notice-header {
+      padding: 16px 24px;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border-card);
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+    }
+    .notice-item {
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .notice-item:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .notice-item-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .notice-badge {
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(121, 40, 202, 0.2);
+      color: #c58af9;
+      border: 1px solid rgba(121, 40, 202, 0.4);
+    }
+    .notice-date {
+      color: var(--text-dim);
+      font-size: 0.85rem;
+    }
+
+    /* Location & Map Graphic Box */
+    .location-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 20px;
+      padding: 36px;
+      align-items: center;
+    }
+    .map-graphic-box {
+      background: radial-gradient(circle at center, #1b2133 0%, #0c0e15 100%);
+      border: 1px dashed rgba(0, 242, 254, 0.3);
+      border-radius: 14px;
+      height: 280px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .radar-circle {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border: 1px solid rgba(0, 242, 254, 0.15);
+      border-radius: 50%;
+      animation: pulse 3s infinite ease-out;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.6); opacity: 0.8; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+    .map-pin {
+      position: relative;
+      z-index: 2;
+      width: 20px;
+      height: 20px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 20px var(--accent-cyan);
+    }
+    .map-pin-label {
+      margin-top: 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-cyan);
+      letter-spacing: 0.05em;
+    }
+
+    /* Contact Form */
+    .contact-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .form-group.full {
+      grid-column: span 2;
+    }
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .form-control {
+      background: rgba(12, 14, 21, 0.8);
+      border: 1px solid var(--border-card);
+      border-radius: 8px;
+      padding: 14px 16px;
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+    }
+    .form-control:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+    }
+    textarea.form-control {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border-card);
+      padding: 60px 0 40px 0;
+      background: #040508;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+    .footer-info p {
+      margin-top: 6px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .footer-links a:hover {
+      color: var(--accent-cyan);
+    }
+    .copyright {
+      text-align: center;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #00f2fe;
+      color: #040711;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: var(--transition);
+      z-index: 2000;
+    }
+    #toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 992px) {
+      .card-large, .card-small {
+        grid-column: span 12;
+      }
+      .location-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .mobile-menu-active .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        width: 100%;
+        background: rgba(8, 9, 13, 0.98);
+        border-bottom: 1px solid var(--border-card);
+        padding: 24px;
+        gap: 20px;
+      }
+      .contact-form {
+        grid-template-columns: 1fr;
+      }
+      .form-group.full {
+        grid-column: span 1;
+      }
+      section {
+        padding: 80px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-bg"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <div class="logo-glow"></div>
+        KANOALAB
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">회사소개</a></li>
+        <li><a href="#history">회사연혁</a></li>
+        <li><a href="#research">사업 & 핵심연구</a></li>
+        <li><a href="#location">오시는 길</a></li>
+        <li><a href="#customer">고객센터</a></li>
+      </ul>
+      <a href="#customer" class="nav-cta">문의하기</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero">
+    <div class="container hero-content">
+      <div class="hero-badge-wrap">
+        <div class="badge-gemini">
+          <span class="dot"></span>
+          Google Gemini API Ecosystem Partner Architecture
+        </div>
+      </div>
+      <h1 class="hero-title">
+        Enterprise AI Frontiers,<br />
+        <span class="gradient-text">지능형 미래를 설계하는 카노아랩</span>
+      </h1>
+      <p class="hero-desc">
+        카노아랩(KANOALAB)은 멀티모달 LLM 파인튜닝과 자율형 비즈니스 오토메이션을 연구합니다.
+        압도적인 데이터 정제 기술력으로 기업의 의사결정 구조를 지능화합니다.
+      </p>
+      <div class="hero-actions">
+        <a href="#research" class="btn-primary">핵심 연구 분야 살펴보기</a>
+        <a href="#customer" class="btn-secondary">기술 제휴 및 솔루션 문의</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="sub-badge">ABOUT US</span>
+        <h2>복잡한 데이터를 명쾌한<br />인텔리전스로 변환합니다</h2>
+        <p>카노아랩은 고부가가치 산업군을 위한 전용 AI 모델 파인튜닝 및 에이전틱 워크플로우를 개척하고 있는 테크 연구 중심 기업입니다.</p>
+      </div>
+
+      <div class="bento-grid">
+        <div class="card card-small">
+          <div class="card-icon">🎯</div>
+          <h3>Mission & Vision</h3>
+          <p>기업의 고유 비정형 데이터셋을 가장 최적화된 형태로 구조화하여 고성능 경량 AI 솔루션으로 탈바꿈합니다. 실리콘밸리 표준 엔지니어링 파이프라인을 지향합니다.</p>
+        </div>
+        <div class="card card-large">
+          <div class="card-icon">⚡</div>
+          <h3>Google Ecosystem Integration</h3>
+          <p>구글 제미나이(Gemini 1.5 Pro / Flash) API 기반의 초거대 컨텍스트 윈도우를 활용해 방대한 양의 산업 문서를 초고속으로 파싱하고 자동화하는 차세대 RAG 아키텍처를 보유하고 있습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- History & Corporate Roadmap -->
+  <section id="history">
+    <div class="container">
+      <div class="section-header">
+        <span class="sub-badge">ROADMAP & HISTORY</span>
+        <h2>성장과 혁신의 타임라인</h2>
+        <p>기초 연구개발부터 향후 주식회사 법인 출범까지, 카노아랩의 비전 실행 연혁입니다.</p>
+      </div>
+
+      <div class="timeline-wrap">
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-date">2024. Q3</div>
+          <div class="timeline-content">
+            <h4>카노아랩(KANOALAB) 연구 설립</h4>
+            <p>초경량 파인튜닝 파이프라인 R&D 착수 및 멀티모달 도메인 데이터셋 추출 아키텍처 설계.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-node"></div>
+          <div class="timeline-date">2024. Q4</div>
+          <div class="timeline-content">
+            <h4>Google Cloud & Gemini API 엔지니어링 테스트베드 구축</h4>
+            <p>Google Gemini 기반의 고신뢰성 산업용 자동화 에이전트 PoC 완료 및 테스트베드 검증 달성.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item future">
+          <div class="timeline-node"></div>
+          <div class="timeline-date">2025 (UPCOMING)</div>
+          <div class="timeline-content">
+            <h4 style="color: var(--accent-cyan);">(주)카노아랩 주식회사 법인 전환 예정</h4>
+            <p>글로벌 스케일업과 기술 크레딧 유치 및 지배구조 고도화를 위한 공식 법인 출범 예정 (공지사항 참조).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research & Business (Core Focus) -->
+  <section id="research">
+    <div class="container">
+      <div class="section-header">
+        <span class="sub-badge">CORE CAPABILITIES</span>
+        <h2>핵심 연구 & 비즈니스 분야</h2>
+        <p>카노아랩의 핵심 연구진이 집중하고 있는 두 가지 핵심 엔지니어링 영역입니다.</p>
+      </div>
+
+      <div class="bento-grid">
+        <div class="card card-large">
+          <div class="card-icon">🧠</div>
+          <h3>1. 고정밀 데이터셋 파인튜닝 (Dataset Fine-Tuning)</h3>
+          <p>
+            범용 LLM이 해결하지 못하는 도메인 특화 문제를 완벽하게 커스텀합니다. 
+            노이즈 필터링, 합성 데이터(Synthetic Data) 생성, RLHF(인간 피드백 기반 강화학습) 및 DPO 최적화를 통해 
+            엔터프라이즈의 독점 지적자산을 가장 안전하고 정교한 파라미터로 증류(Distillation)합니다.
+          </p>
+        </div>
+
+        <div class="card card-small">
+          <div class="card-icon">⚙️</div>
+          <h3>2. 자율형 비즈니스 오토메이션</h3>
+          <p>
+            반복적인 수작업 문서 업무 및 분석 프로세스를 종결합니다. 제미나이 멀티모달 인텔리전스를 결합해 복잡한 비즈니스 로직을 자율 실행(Autonomous Execution)하는 에이전트 시스템을 공급합니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location Section -->
+  <section id="location">
+    <div class="container">
+      <div class="section-header">
+        <span class="sub-badge">LOCATION</span>
+        <h2>오시는 길</h2>
+        <p>카노아랩 연구소 및 오피스 위치입니다. 사전 미팅 예약 후 방문을 권장합니다.</p>
+      </div>
+
+      <div class="location-card">
+        <div>
+          <h3 style="font-size: 1.5rem; margin-bottom: 12px;">카노아랩 헤드쿼터 (HQ)</h3>
+          <p style="color: var(--text-muted); margin-bottom: 24px; line-height: 1.8;">
+            <strong style="color: #fff;">주소 : </strong> 대구광역시 남구 계명2길 31-7, 1층 102호 (대명동)<br />
+            <strong style="color: #fff;">운영 시간 : </strong> 평일 10:00 - 18:00 (KST)<br />
+            <strong style="color: #fff;">기술 문의 : </strong> info@kanoalab.com
+          </p>
+          <button class="btn-secondary" onclick="copyAddress()">주소 복사하기</button>
+        </div>
+
+        <div class="map-graphic-box">
+          <div class="radar-circle"></div>
+          <div class="map-pin"></div>
+          <div class="map-pin-label">KANOALAB CAMPUS</div>
+          <div style="font-size: 0.75rem; color: var(--text-dim); margin-top: 4px;">DAEGU, REPUBLIC OF KOREA</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Center & Notice -->
+  <section id="customer">
+    <div class="container">
+      <div class="section-header">
+        <span class="sub-badge">CUSTOMER CENTER</span>
+        <h2>공지사항 및 문의 접수</h2>
+        <p>법인 전환 소식을 투명하게 안내하며, 파트너십 및 기술 문의를 24시간 이내에 회신합니다.</p>
+      </div>
+
+      <!-- 공지사항 게시판 레이아웃 -->
+      <div class="notice-box">
+        <div class="notice-header">
+          <span>제목</span>
+          <span>등록일</span>
+        </div>
+        <div class="notice-item" onclick="openNotice()">
+          <div class="notice-item-title">
+            <span class="notice-badge">공지</span>
+            <span>[공지] 카노아랩 주식회사(법인) 설립 및 전환 계획 안내</span>
+          </div>
+          <div class="notice-date">2025. 02. 01</div>
+        </div>
+        <div class="notice-item" onclick="openNotice()">
+          <div class="notice-item-title">
+            <span class="notice-badge" style="background: rgba(0,242,254,0.1); color: var(--accent-cyan); border-color: rgba(0,242,254,0.3);">소식</span>
+            <span>구글 제미나이 1.5 아키텍처 전사 연구 파이프라인 도입 완료</span>
+          </div>
+          <div class="notice-date">2025. 01. 15</div>
+        </div>
+      </div>
+
+      <!-- Inquiry Form -->
+      <div class="card card-full">
+        <h3 style="margin-bottom: 24px;">프로젝트 및 기술 문의하기</h3>
+        <form class="contact-form" onsubmit="handleContactSubmit(event)">
+          <div class="form-group">
+            <label for="name">성함 / 담당자 직함</label>
+            <input type="text" id="name" class="form-control" placeholder="홍길동 팀장" required />
+          </div>
+          <div class="form-group">
+            <label for="email">이메일 주소 (회신용)</label>
+            <input type="email" id="email" class="form-control" placeholder="partner@enterprise.com" required />
+          </div>
+          <div class="form-group full">
+            <label for="subject">문의 주제</label>
+            <input type="text" id="subject" class="form-control" placeholder="LLM 데이터셋 파인튜닝 / 오토메이션 제휴 문의" required />
+          </div>
+          <div class="form-group full">
+            <label for="message">상세 문의 내용</label>
+            <textarea id="message" class="form-control" placeholder="요구사항, 현재 연구 단계 또는 협업 희망 분야를 간략히 기재해 주세요." required></textarea>
+          </div>
+          <div class="form-group full" style="margin-top: 10px;">
+            <button type="submit" class="btn-primary" style="cursor: pointer; border: none; width: 100%;">
+              문의 메일 전송 (info@kanoalab.com 연동)
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h4 style="color: #fff; font-size: 1.1rem; margin-bottom: 8px;">KANOALAB</h4>
+          <p>상호: 카노아랩 (주식회사 법인 설립 추진 중) | 대표자: 카노아랩 총괄</p>
+          <p>소재지: 대구광역시 남구 계명2길 31-7, 1층 102호 | 공식 문의: info@kanoalab.com</p>
+          <p>사업분야: 인공지능 연구개발, LLM 데이터셋 파인튜닝, 기업 지능화 솔루션</p>
+        </div>
+        <div class="footer-links">
+          <a href="#about">회사소개</a>
+          <a href="#research">연구분야</a>
+          <a href="#customer">고객지원</a>
+          <a href="mailto:info@kanoalab.com">info@kanoalab.com</a>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2025 KANOALAB. All Rights Reserved. Built with Next-Gen AI Technology Stack.
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast">알림 메시지</div>
+
+  <!-- JavaScript -->
+  <script>
+    // 1. 모바일 햄버거 토글
+    const menuToggle = document.getElementById('menuToggle');
+    const header = document.querySelector('header');
+    menuToggle.addEventListener('click', () => {
+      header.classList.toggle('mobile-menu-active');
+    });
+
+    // 모바일 메뉴 클릭 시 자동 닫기
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        header.classList.remove('mobile-menu-active');
+      });
+    });
+
+    // 2. 토스트 알림 함수
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.innerText = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // 3. 주소 복사 기능
+    function copyAddress() {
+      const address = "대구광역시 남구 계명2길 31-7 1층 102호";
+      navigator.clipboard.writeText(address).then(() => {
+        showToast("✓ 주소가 클립보드에 복사되었습니다.");
+      }).catch(() => {
+        showToast("주소 복사에 실패했습니다.");
+      });
+    }
+
+    // 4. 공지사항 모달 대체 알림
+    function openNotice() {
+      alert(
+        "[공지] 카노아랩 주식회사 법인 설립 안내\n\n" +
+        "카노아랩은 사업 규모 확장 및 글로벌 테크 생태계 진입(Google Cloud 파트너십 등)을 위해 정식 주식회사(법인) 설립 절차를 진행 중에 있습니다.\n\n" +
+        "법인 등기 완료 즉시 본 웹사이트를 통해 공시 및 변경 사항을 전달드리겠습니다."
+      );
+    }
+
+    // 5. 문의 폼 전송 핸들러
+    function handleContactSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+
+      // info@kanoalab.com 수신용 mailto 링크 트리거
+      const mailtoLink = `mailto:info@kanoalab.com?subject=[카노아랩 문의] ${encodeURIComponent(subject)}&body=${encodeURIComponent(
+        `보내시는 분: ${name} (${email})\n\n내용:\n${message}`
+      )}`;
+      
+      window.location.href = mailtoLink;
+      showToast("메일 클라이언트로 연결합니다. (수신: info@kanoalab.com)");
+    }
+  </script>
+</body>
+</html>
