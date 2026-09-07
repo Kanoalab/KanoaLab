@@ -1267,33 +1267,47 @@
       </div>
 
       <!-- Inquiry Form -->
-      <div class="card card-full">
-        <h3 style="margin-bottom: 24px;">프로젝트 및 기술 제휴 문의</h3>
-        <form class="contact-form" onsubmit="handleContactSubmit(event)">
-          <div class="form-group">
-            <label for="name">성함 / 담당자 직함 / 기관(기업)명</label>
-            <input type="text" id="name" class="form-control" placeholder="홍길동 수석심사역 (또는 대표)" required />
-          </div>
-          <div class="form-group">
-            <label for="email">이메일 주소 (회신용)</label>
-            <input type="email" id="email" class="form-control" placeholder="partner@enterprise.com" required />
-          </div>
-          <div class="form-group full">
-            <label for="subject">문의 주제</label>
-            <input type="text" id="subject" class="form-control" placeholder="v7.1000 기호논리 데이터셋 도입 / 팁스 투자 파트너십 / 기술 제휴" required />
-          </div>
-          <div class="form-group full">
-            <label for="message">상세 문의 내용</label>
-            <textarea id="message" class="form-control" placeholder="협업 요구사항, 투자 라운드 논의 또는 데이터셋 파인튜닝 의뢰 내용을 간략히 기재해 주세요." required></textarea>
-          </div>
-          <div class="form-group full" style="margin-top: 10px;">
-            <button type="submit" class="btn-primary" style="border: none; width: 100%;">
-              문의 메일 전송 (info@kanoalab.com 직통)
-            </button>
-          </div>
-        </form>
-      </div>
+<!-- 프로젝트 및 기술 제휴 문의 실제 백엔드 연동 폼 컴포넌트 -->
+<div class="card card-full">
+  <div class="card-icon">✉</div>
+  <h3>프로젝트 및 기술 제휴 문의</h3>
+  <p style="margin-bottom: 24px; color: var(--text-muted);">파트너십 및 기술 문의를 남겨주시면 24시간 이내에 전담 연구진이 회신합니다.</p>
+  
+  <!-- Formspree 메일 파이프라인 연동 (action 자리에 소장님의 고유 코드를 넣으세요) -->
+  <form action="https://formspree.io" method="POST" class="contact-form">
+    
+    <div class="form-group">
+      <label for="client-name">성함 / 담당자 직함 / 투자사명</label>
+      <input type="text" id="client-name" name="name" class="form-control" placeholder="홍길동 수석 / 대표이사 / VC투자팀" required />
     </div>
+    
+    <div class="form-group">
+      <label for="client-email">이메일 주소 (회신용)</label>
+      <input type="email" id="client-email" name="_replyto" class="form-control" placeholder="your-email@domain.com" required />
+    </div>
+    
+    <div class="form-group full">
+      <label for="client-subject">문의 주제</label>
+      <input type="text" id="client-subject" name="subject" class="form-control" placeholder="v7.1000 데이터셋 제휴 / 기술 미팅 제안 등" required />
+    </div>
+    
+    <div class="form-group full">
+      <label for="client-message">상세 문의 내용</label>
+      <textarea id="client-message" name="message" class="form-control" placeholder="문의하실 구체적인 세부 사항을 입력해 주세요." required></textarea>
+    </div>
+    
+    <!-- 전송 후 성공 페이지를 카노아랩 메인으로 지정하여 튕김 방지 -->
+    <input type="hidden" name="_next" value="https://kanoalab.com" />
+    
+    <div class="form-group full" style="margin-top: 10px;">
+      <button type="submit" class="btn-primary" style="width: 100%; border: none; font-size: 1rem; padding: 16px;">
+        🚀 문의 메일 전송 (info@kanoalab.com 직통 파이프라인)
+      </button>
+    </div>
+    
+  </form>
+</div>
+
   </section>
 
   <!-- Footer -->
