@@ -1,3 +1,35 @@
+===============================================================================
+[KO] 저작권 및 오픈소스 라이선스 선언 (저작자: 카노아랩 총괄 연구소장)
+===============================================================================
+본 '66권 31,102절 기호논리 AI 성경책 솔루션 및 무결성 데이터셋'은 전 세계 모든 
+사람이 복음을 무료로 수용하고 활용할 수 있도록 GNU GPL v3.0 조건으로 전격 공개됩니다.
+
+"보라 내가 너희를 보냄이 양을 이리 가운데로 보냄과 같도다 
+ 그러므로 너희는 뱀 같이 지혜롭고 비둘기 같이 순결하라" (마태복음 10:16)
+
+본 연구소는 이 말씀에 근거하여, 복음의 무단 도용과 상업적 독점을 막는 지혜로운 방패를 세웁니다:
+1. 상업적 독점 금지 (Non-Commercialization): 본 원천 기술을 무단 도용하여 유료화하거나 상업적 이득을 취하는 행위를 엄격히 금지합니다.
+2. 무조건적 오픈소스 승계 (Copyleft): 본 코드를 가져가 변형하거나 앱을 만드는 자는, 자신들이 만든 코드 역시 전 세계에 100% 무료로 투명하게 공개해야 합니다.
+3. 임의 권리화 및 특허 가로채기 금지 (Anti-Patent Shoplifting): 이 알고리즘을 교묘히 비틀어 자신들만의 독점 특허로 출원하여 임의 권리화하는 행위는 법적으로 금지되며, 시도 즉시 본 라이선스 사용 권리는 자동 박탈됩니다.
+
+===============================================================================
+[EN] Copyright & Open Source License Notice (Author: KanoaLab)
+===============================================================================
+Copyright (C) 2026 KanoaLab. All rights reserved.
+
+"Behold, I am sending you out as sheep in the midst of wolves, 
+ so be wise as serpents and innocent as doves." (Matthew 10:16)
+
+This "66 Books 31,102 Verses Symbolic Logic AI Bible Solution & Dataset" is 
+officially licensed under the GNU General Public License v3.0 (GPLv3) to ensure 
+that the Gospel remains free and accessible to all mankind without distortion.
+
+By exercising the rights granted hereunder, you agree to the following terms:
+1. Anti-Commercial Monopoly: You shall not commercialize or privatize this core technology for proprietary profit.
+2. Share-Alike (Copyleft): Any derivative works, sub-modules, or applications utilizing this dataset must also be fully disclosed as 100% Free Open Source Software under the same GPLv3 terms.
+3. Anti-Patent Encapsulation: Any attempt to register a proprietary patent by subtly modifying this mathematical logic algorithm for arbitrary formalization is strictly prohibited. Such attempts will trigger immediate, automatic revocation of your license.
+
+===============================================================================
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
